@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load tailwind_filters %}
+
+{% block content %}
+{% if not request.user.is_authenticated %}
+<div class="max-w-lg mx-auto">
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 px-3 py-2 rounded-md text-white"> Login
+        </button>
+
+
+    </form>
+    <div class="py-5 border-t  border-gray-200 mt-5">
+        <a class="hover:text-blue-500 mt-3" href="{% url 'reset-password' %}">Reset
+            Your Password</a>
+
+    </div>
+</div>
+{%else%}
+Already logged in with an account. <a href="{% url 'logout' %}"> LogOut </a> to get login with another account.
+{%endif%}
+{% endblock content %}
